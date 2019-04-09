@@ -1,0 +1,3 @@
+azure-iothub-device-client
+grpcio
+tensorflow-serving-api
