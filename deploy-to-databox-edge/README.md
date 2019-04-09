@@ -1,11 +1,11 @@
-# AzureML FPGA - Deploy to Databox Edge
-This notebook and sample code to showcase the use of AzureML FPGA product on the Databox Edge machine. 
+# Azure ML Hardware Accelerated Models - Deploy to Databox Edge
+This notebook and sample code to showcase the use of Azure ML HW Accelerated Models on the Databox Edge machine. 
 
 ## Getting Started
-These samples assume you have are familiar with the AzureML FPGA product. If not, you can read more [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-accelerate-with-fpgas).
+These samples assume you have are familiar with the Azure ML HW Accelerated Models product. If not, you can read more [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-accelerate-with-fpgas).
 
 ### Prerequisites
-- You must first have created an AzureML BrainwaveContainerImage using the [Quickstart](https://github.com/Microsoft/aml-fpga-preview/blob/master/notebooks/project-brainwave-quickstart.ipynb) notebook. You can use AzureML FPGA Images that were not built from the Quickstart, but you will have to update the input and output tensor names when deploying your sample client.
+- You must first have created an Azure ML BrainwaveContainerImage using the [Quickstart](https://github.com/Microsoft/aml-fpga-preview/blob/master/notebooks/project-brainwave-quickstart.ipynb) notebook. You can use Azure ML FPGA Images that were not built from the Quickstart, but you will have to update the input and output tensor names when deploying your sample client.
 - Follow [these instructions](https://docs.microsoft.com/en-us/azure/databox-online/data-box-edge-deploy-configure-compute) to enable the Linux Compute VM on your Databox Edge Machine.
 
 ### Quickstart
@@ -16,7 +16,7 @@ jupyter notebook
 ```
 
 ### Sample Client
-The sample client iterates through images, sends a gRPC request to the AzureML host module, prints the response, and also sends the response to IoT Hub as a message. The run.py script that is called on startup of the module takes the following parameters, which can be modified using Cmd argument in IoT Hub's Create Container options. 
+The sample client iterates through images, sends a gRPC request to the Azure ML host module, prints the response, and also sends the response to IoT Hub as a message. The run.py script that is called on startup of the module takes the following parameters, which can be modified using Cmd argument in IoT Hub's Create Container options. 
 
 ```
 usage: run.py [-h] [-d IMAGE_DIR] [-i INPUT_TENSORS] [-o OUTPUT_TENSORS]
