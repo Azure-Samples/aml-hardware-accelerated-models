@@ -43,7 +43,7 @@ def send_iothub_message(iothub_client, msg):
 
 def main(args):
     prediction_client = PredictionClient(args.address, args.port)
-    if DEVICE_CONNECTION_STRING:
+    if DEVICE_CONNECTION_STRING and not args.suppress_messages:
         iothub_client = IoTHubClient(DEVICE_CONNECTION_STRING, PROTOCOL)
     classes_entries = requests.get("https://raw.githubusercontent.com/Lasagne/Recipes/master/examples/resnet50/imagenet_classes.txt").text.splitlines()
 
@@ -74,13 +74,13 @@ def main(args):
                 print(msg_string)
                 print("Trying again in {} seconds...".format(args.wait))
             
-            if DEVICE_CONNECTION_STRING:
+            if DEVICE_CONNECTION_STRING and not args.suppress_messages:
                 send_iothub_message(iothub_client, msg_string)
             time.sleep(args.wait)
 
 if __name__ == "__main__":
     # Parse arguments
-    parser = argparse.ArgumentParser(description="Take address and inputs for inferencing.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--image-dir", type=str, default="./assets/", dest='image_dir',
                                     help="The file path of the image to inference. Default: './assets/'")
     parser.add_argument("-i", "--input-tensors", type=str, default="Placeholder:0", dest='input_tensors',
@@ -96,8 +96,11 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--port", default=50051,
                         help="The port of the inferencing container. \n" +
                              "Default: 50051.")
-    parser.add_argument("-w", "--wait", default=10,
+    parser.add_argument("-w", "--wait", default=10, type=int,
                         help="Time to wait between each inference call. \n" +
                              "Default: 10.")
+    parser.add_argument("-s", "--suppress-messages", action='store_true', dest='suppress_messages',
+                        help="Flag to suppress IOT Hub messages. Default: False.\n" + \
+                             "Use --wait flag to lessen or this flag to turn off IOT hub messaging to avoid reaching your limit of IOT Hub messages.")
     args = parser.parse_args()
     main(args)

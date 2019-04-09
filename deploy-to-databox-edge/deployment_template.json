@@ -43,14 +43,14 @@
                             "createOptions": "{\"HostConfig\":{\"Privileged\":true,\"PortBindings\":{\"50051/tcp\":[{\"HostPort\":\"50051\"}]},\"Devices\":[{\"PathOnHost\":\"/dev/catapult0\",\"PathInContainer\":\"/dev/catapult0\"},{\"PathOnHost\":\"/dev/catapult1\",\"PathInContainer\":\"/dev/catapult1\"}]}}"
                         },
                         "version": "1.0",
-                        "status": "running",
+                        "status": "$HOST_STATUS",
                         "restartPolicy": "always"
                     },
                     "sample-client": {
                         "type": "docker",
                         "settings": {
                             "image": "$ACR_NAME.azurecr.io/sample-client",
-                            "createOptions": "{\"Tty\":true}"
+                            "createOptions": "{\"Tty\":true,\"Cmd\":[\"--input-tensors\",\"$INPUT_TENSOR\",\"--output-tensors\",\"$OUTPUT_TENSOR\",\"--wait\",\"10\"]}"
                         },
                         "version": "1.0",
                         "env": {
@@ -58,7 +58,7 @@
                                 "value": "$DEVICE_CONNECTION_STRING"
                             }
                         },
-                        "status": "running",
+                        "status": "$CLIENT_STATUS",
                         "restartPolicy": "always"
                     }
                 }

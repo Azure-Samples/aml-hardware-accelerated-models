@@ -2,9 +2,6 @@ FROM ubuntu:16.04
 
 # Update image
 SHELL ["/bin/bash", "-c"]
-
-# Add requirements.txt before rest of repo for caching
-ADD requirements.txt /app/
 WORKDIR /app
 
 # Install Python 3.5 and dependencies for IoT Client SDK
