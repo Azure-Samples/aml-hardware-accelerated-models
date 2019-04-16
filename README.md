@@ -2,7 +2,10 @@
 
 
 ## Getting Started
-These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product. If not, you can read more [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-accelerate-with-fpgas).
+These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product. If not, you can read more [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-accelerate-with-fpgas). The samples in this repo are: 
+ 
+* deploy-to-databox-edge/deploy-accelerated-models-to-databox-edge.ipynb
+    * Follow this notebook if you have a Databox Edge machine or any Azure IoT Edge Device that is FPGA-enabled.
 
 ### Prerequisites
 - You must first have created an Azure ML BrainwaveContainerImage using the [Quickstart](https://github.com/Microsoft/aml-fpga-preview/blob/master/notebooks/project-brainwave-quickstart.ipynb) notebook. You can use Azure ML FPGA Images that were not built from the Quickstart, but you will have to update the input and output tensor names when deploying your sample client.
