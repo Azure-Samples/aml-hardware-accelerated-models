@@ -328,3 +328,12 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Ignore Jupyter checkpoints
+/**/.ipynb_checkpoints
+
+# ignore all aml_config directories
+/**/aml_config
+
+# ignore deployment.json that is created by notebook
+/**/deployment.json
