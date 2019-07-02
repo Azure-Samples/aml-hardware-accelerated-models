@@ -1,18 +1,17 @@
-# Azure Machine Learning Hardware Accelerated Models Powered by Project Brainwave - Samples
+# Azure Machine Learning Hardware Accelerated Models - Samples
 
 
 ## Getting Started
 These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product. If not, you can read more [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-accelerate-with-fpgas). The samples in this repo are: 
  
-* deploy-to-databox-edge/deploy-accelerated-models-to-databox-edge.ipynb
-    * Follow this notebook if you have a Databox Edge machine or any Azure IoT Edge Device that is FPGA-enabled.
-
-### Prerequisites
-- You must first have created an Azure ML BrainwaveContainerImage using the [Quickstart](https://github.com/Microsoft/aml-fpga-preview/blob/master/notebooks/project-brainwave-quickstart.ipynb) notebook. You can use Azure ML FPGA Images that were not built from the Quickstart, but you will have to update the input and output tensor names when deploying your sample client.
+* [Deploy to Data Box Edge](deploy-to-databox-edge/deploy-accelerated-models-to-databox-edge.ipynb)
+    * Follow this notebook if you have a Databox Edge machine. Data Box Edge is an on-premise server that is enabled with an FPGA. Read more [here](https://docs.microsoft.com/en-us/azure/databox-online/data-box-edge-overview).
 
 ### Quickstart
 ```
-git clone https://github.com/Azure-Samples/aml-real-time-ai.git
-cd aml-real-time-ai
+git clone https://github.com/Azure-Samples/aml-hardware-accelerated-models.git
+cd aml-hardware-accelerated-models
+pip install azureml-accel-models[cpu]
+pip install jupyter
 jupyter notebook
 ```
