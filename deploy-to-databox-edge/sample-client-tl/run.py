@@ -9,7 +9,7 @@ import time
 import traceback
 
 # Using the grpc client in AzureML Brainwave SDK
-from azureml.brainwave.client import PredictionClient
+from azureml.accel import PredictionClient
 
 # The device connection string to authenticate the device with your IoT hub.
 # These environment variables are set in IoT Edge Module settings (see deployment_template.json)
@@ -50,12 +50,12 @@ def main(args):
         for image in os.listdir(args.image_dir):
             # score image
             try:
-                print(os.path.join(args.image_dir, image))
-                results = prediction_client.score_image(path=os.path.join(args.image_dir, image), 
+                results = prediction_client.score_file(path=os.path.join(args.image_dir, image), 
                                                         input_name=args.input_tensors, 
-                                                        out_name=args.output_tensors)
+                                                        outputs=args.output_tensors)
                 result = 'cat' if results[0] > results[1] else 'dog'
                 msg_string = "The image {} is a '{}'.".format(image, result)
+                print(msg_string)
             except:
                 tb = traceback.format_exc()
                 if "StatusCode.UNAVAILABLE" in tb:

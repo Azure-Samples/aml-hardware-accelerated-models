@@ -40,7 +40,7 @@
                         "type": "docker",
                         "settings": {
                             "image": "$FPGA_IMAGE_ACR",
-                            "createOptions": "{\"HostConfig\":{\"Privileged\":true,\"PortBindings\":{\"50051/tcp\":[{\"HostPort\":\"50051\"}]},\"Devices\":[{\"PathOnHost\":\"/dev/catapult0\",\"PathInContainer\":\"/dev/catapult0\"},{\"PathOnHost\":\"/dev/catapult1\",\"PathInContainer\":\"/dev/catapult1\"}]}}"
+                            "createOptions": "{\"HostConfig\":{\"Binds\":[\"/etc/hosts:/etc/hosts\"],\"Privileged\":true,\"PortBindings\":{\"50051/tcp\":[{\"HostPort\":\"50051\"}]},\"Devices\":[{\"PathOnHost\":\"/dev/catapult0\",\"PathInContainer\":\"/dev/catapult0\"},{\"PathOnHost\":\"/dev/catapult1\",\"PathInContainer\":\"/dev/catapult1\"}]}}"
                         },
                         "version": "1.0",
                         "status": "$HOST_STATUS",
