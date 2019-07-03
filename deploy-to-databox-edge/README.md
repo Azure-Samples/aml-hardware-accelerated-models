@@ -52,7 +52,7 @@ To deploy the image to the Data Box Edge machine, we will use the IoT Hub associ
     Using the Azure Portal is a quick way to get started and get a sense of the different resources involved. You will need a ContainerImage or AccelContainerImage already created. See the section below.
 
 #### Deploy using Azure Portal
-You will need a ContainerImage or AccelContainerImage already created.
+You will need the AccelContainerImage already successfully created in your Azure ML Workspace. The AccelContainerImage is a Docker image stored in the Azure Container Registry associated with your Azure ML Workspace. The AccelContainerImage contains the accelerated model, the runtime to run the accelerated model, and the webservice to allow inferencing.
 The steps to deployment are: 
 1. Get image location of AccelContainerImage
     * In your Azure ML Workspace, go to the Image section and find the Image you want to deploy. 
@@ -119,7 +119,6 @@ The steps to deployment are:
           ]
         }
         ```
-
 
 ### Sample Client
 Once your host web service is running on your Data Box Edge machine, you can use one of the sample clients to inference. The sample client iterates through images, sends a gRPC request to the Azure ML host module, prints the response, and also sends the response to IoT Hub as a message. The run.py script that is called on startup of the module takes the following parameters, which can be modified using Cmd argument in IoT Hub's Create Container options. 
