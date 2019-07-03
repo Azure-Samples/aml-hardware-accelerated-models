@@ -10,21 +10,10 @@ For optimal performance, you should reuse the client object between calls.
 #### C#
 See `csharp\resnet` for a sample console application that uses the provided C# client.
 #### Python
-A python client is included in 
-``` python
-from client import PredictionClient
-def run(ip_address, port, input_data):
-    client = PredictionClient(ip_address, self.port, False, "")
-        if isinstance(input_data, str):
-            return client.score_image(input_data)
-        if isinstance(input_data, np.ndarray):
-            return client.score_numpy_array(input_data)
-        return client.score_file(input_data.read())
-```
+A python client is included in the [Azure-ML SDK](https://docs.microsoft.com/en-us/python/api/azureml-accel-models/azureml.accel.predictionclient?view=azure-ml-py).
 
 ## Generated Clients
-You can also generate clients for your prefered language by using the gRPC codegen tools. For more information - especially on using the generated clients - consult the [gRPC documentation.](https://grpc.io/docs/
-)
+You can also generate clients for your prefered language by using the gRPC codegen tools. For more information - especially on using the generated clients - consult the [gRPC documentation.](https://grpc.io/docs/)
 
 ### Generating clients for other languages
 #### Requirements
