@@ -42,6 +42,9 @@ namespace CSharpClient
             var callInvoker = channel.Intercept(
                 metadata =>
                     {
+                        if (!string.IsNullOrEmpty(authKey)){
+                            metadata.Add("authorization", $"bearer {authKey}");
+                        }
                         metadata.Add(
                             new Metadata.Entry("x-ms-aml-grpc-service-route", $"/api/v1/service/{serviceName}"));
                         return metadata;
