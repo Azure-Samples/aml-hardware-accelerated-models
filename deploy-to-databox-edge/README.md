@@ -2,7 +2,8 @@
 This notebook and sample code showcase the use of Azure ML Hardware Accelerated Models on the Data Box Edge (DBE) machine. [Data Box Edge]((https://docs.microsoft.com/en-us/azure/databox-online/data-box-edge-overview)) is an on-premise server that is enabled with an FPGA. By running the Azure ML AccelContainerImage (a Docker image) on the machine where the input images are being stored, you can address privacy concerns in cases where the images contain sensitive material and process images faster by removing network latency. We will use the Data Box Edge's IoT Hub to deploy the AccelContainerImage with specifications of how to access the FPGA and reap the benefits of hardware accelerated neural network models. 
 
 ## Getting Started
-These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product. If not, you can read more about Azure ML FPGA acceleration of models [here](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-deploy-fpga-web-service). We have more resources here:
+These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product. If not, you can read more about Azure ML FPGA acceleration of models at the resources here:
+- [Azure ML Documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-deploy-fpga-web-service)
 - [PyPi library](https://pypi.org/project/azureml-accel-models/)
 - [Python SDK documentation](https://docs.microsoft.com/en-us/python/api/azureml-accel-models/azureml.accel?view=azure-ml-py)
 - [Azure Machine Learning notebooks](https://github.com/Azure/MachineLearningNotebooks/tree/master/how-to-use-azureml/deployment/accelerated-models) 
@@ -39,15 +40,16 @@ Additionally, for the sample client, the ones included here will not work. You c
 To deploy the image to the Data Box Edge machine, we will use the IoT Hub associated with your Linux Compute VM. When a Docker image is deployed through IoT Hub, it is called a 'module' running on the edge device.
 
 - [Deploy using Azure ML Python SDK](deploy-to-edge-using-sdk.ipynb)
-If your Data Box Edge machine is in the same subscription as your Azure ML Workspace, you can use the Azure ML SDK to deploy your model. In this case, all you have to provide is your Azure ML Workspace, your registered model, your IoT Hub name, and your IoT Edge device. In the process of deployment, your model will be converted to the Accelerated format (if not already converted) and an AccelContainerImage will be created automatically.
+
+    If your Data Box Edge machine is in the same subscription as your Azure ML Workspace, you can use the Azure ML SDK to deploy your model. In this case, all you have to provide is your Azure ML Workspace, your registered model, your IoT Hub name, and your IoT Edge device. In the process of deployment, your model will be converted to the Accelerated format (if not already converted) and an AccelContainerImage will be created automatically.
 
 - [Deploy using Azure IoT CLI](deploy-to-edge-using-cli.ipynb)
 
-If your Data Box Edge machine is not in the same subscription as your Azure ML Workspace, you can still deploy your model using the Azure CLI or Portal. You will have to create the AccelContainerImage yourself. The AccelContainerImage is a Docker image stored in the Azure Container Registry associated with your Azure ML Workspace. The AccelContainerImage contains the accelerated model, the runtime to run the accelerated model, and the webservice to allow inferencing.
+    If your Data Box Edge machine is not in the same subscription as your Azure ML Workspace, you can still deploy your model using the Azure CLI or Portal. You will have to create the AccelContainerImage yourself. The AccelContainerImage is a Docker image stored in the Azure Container Registry associated with your Azure ML Workspace. The AccelContainerImage contains the accelerated model, the runtime to run the accelerated model, and the webservice to allow inferencing.
 
 - [Deploy using Azure Portal](#deploy-using-azure-portal)
 
-Using the Azure Portal is a quick way to get started and get a sense of the different resources involved. You will need a ContainerImage or AccelContainerImage already created. See the section below.
+    Using the Azure Portal is a quick way to get started and get a sense of the different resources involved. You will need a ContainerImage or AccelContainerImage already created. See the section below.
 
 #### Deploy using Azure Portal
 You will need a ContainerImage or AccelContainerImage already created.
@@ -68,6 +70,7 @@ The steps to deployment are:
     * Enter your Azure Container Registry credentials.
     * Choose to add a IoT Custom Module. Then enter name for the module (i.e. resnet50-host) and the Docker image URL.
     * In the **Create Container** options, enter the following JSON. This will give the module access to the FPGA device, FPGA wireserver, and expose the necessary ports.
+        ![Example of IoT Hub Portal Create Container options](./iothub_create_container_options.JPG)
         ```
         {
           "HostConfig": {
