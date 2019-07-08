@@ -134,16 +134,16 @@ optional arguments:
                         './assets/'
   -i INPUT_TENSORS, --input-tensors INPUT_TENSORS
                         The name of the input tensor you specified when
-                        converting your model. Default for Brainwave resnet50:
+                        converting your model. Default for Accelerated resnet50:
                         'Placeholder:0'
   -o OUTPUT_TENSORS, --output-tensors OUTPUT_TENSORS
                         The name of the output tensor you specified when
-                        converting your model. Default for Brainwave resnet50:
+                        converting your model. Default for Accelerated resnet50:
                         'classifier/resnet_v1_50/predictions/Softmax:0'
   -a ADDRESS, --address ADDRESS
                         The address of the inferencing container. For IOT
                         Edge, this is name of the inferencing host module on
-                        the IOT Edge device. Default: azureml-fpga-host
+                        the IOT Edge device. Default: azureml-host
   -p PORT, --port PORT  The port of the inferencing container. Default: 50051.
   -w WAIT, --wait WAIT  Time to wait between each inference call. Default: 10.
   -s, --suppress-messages
