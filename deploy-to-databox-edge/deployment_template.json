@@ -36,20 +36,20 @@
                     }
                 },
                 "modules": {
-                    "azureml-fpga-host": {
+                    "azureml-host": {
                         "type": "docker",
                         "settings": {
-                            "image": "$FPGA_IMAGE_ACR",
-                            "createOptions": "{\"HostConfig\":{\"Privileged\":true,\"PortBindings\":{\"50051/tcp\":[{\"HostPort\":\"50051\"}]},\"Devices\":[{\"PathOnHost\":\"/dev/catapult0\",\"PathInContainer\":\"/dev/catapult0\"},{\"PathOnHost\":\"/dev/catapult1\",\"PathInContainer\":\"/dev/catapult1\"}]}}"
+                            "image": "$HOST_URL",
+                            "createOptions": "{\"HostConfig\":{\"Binds\":[\"/etc/hosts:/etc/hosts\"],\"Privileged\":true,\"PortBindings\":{\"50051/tcp\":[{\"HostPort\":\"50051\"}]},\"Devices\":[{\"PathOnHost\":\"/dev/catapult0\",\"PathInContainer\":\"/dev/catapult0\"},{\"PathOnHost\":\"/dev/catapult1\",\"PathInContainer\":\"/dev/catapult1\"}]}}"
                         },
                         "version": "1.0",
                         "status": "$HOST_STATUS",
                         "restartPolicy": "always"
                     },
-                    "sample-client": {
+                    "azureml-client": {
                         "type": "docker",
                         "settings": {
-                            "image": "$ACR_NAME.azurecr.io/$CLIENT_APP_NAME",
+                            "image": "$CLIENT_URL",
                             "createOptions": "{\"Tty\":true,\"Cmd\":[\"--input-tensors\",\"$INPUT_TENSOR\",\"--output-tensors\",\"$OUTPUT_TENSOR\",\"--wait\",\"10\"]}"
                         },
                         "version": "1.0",
@@ -75,10 +75,10 @@
                 }
             }
         },
-        "azureml-fpga-host": {
+        "azureml-host": {
             "properties.desired": {}
         },
-        "sample-client": {
+        "azureml-client": {
             "properties.desired": {}
         }
     }

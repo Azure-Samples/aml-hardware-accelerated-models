@@ -337,3 +337,6 @@ ASALocalRun/
 
 # ignore deployment.json that is created by notebook
 /**/deployment.json
+
+# Ignore Azure Config
+/**/.azureml

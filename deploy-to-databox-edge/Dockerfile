@@ -21,9 +21,7 @@ RUN pip3 install --upgrade pip && \
 # Install IoT Device Client SDK and AzureML SDK (requires --upgrade flag)
 RUN pip install azure-iothub-device-client && \
     pip install azure-iothub-service-client && \
-    pip install azureml-brainwave --extra-index-url https://azuremlsdktestpypi.azureedge.net/fpgapreview
-
-RUN apt-get install -y vim curl
+    pip install azureml-accel-models
 
 COPY assets/ /app/assets
 

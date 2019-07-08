@@ -8,8 +8,8 @@ import sys
 import time
 import traceback
 
-# Using the grpc client in AzureML Brainwave SDK
-from azureml.brainwave.client import PredictionClient
+# Using the grpc client in AzureML Accelerated Models SDK
+from azureml.accel import PredictionClient
 
 # The device connection string to authenticate the device with your IoT hub.
 # These environment variables are set in IoT Edge Module settings (see deployment_template.json)
@@ -32,7 +32,6 @@ def send_confirmation_callback(message, result, user_context):
 def send_iothub_message(iothub_client, msg):
     # Send result to IOT hub
     try:
-        print(msg)
         message = IoTHubMessage(msg)
         iothub_client.send_event_async(message, send_confirmation_callback, None)
     except IoTHubError as iothub_error:
@@ -51,21 +50,24 @@ def main(args):
         for image in os.listdir(args.image_dir):
             # score image
             try:
-                results = prediction_client.score_image(path=os.path.join(args.image_dir, image), 
+                start_time = time.time()
+                results = prediction_client.score_file(path=os.path.join(args.image_dir, image), 
                                                         input_name=args.input_tensors, 
-                                                        out_name=args.output_tensors)
+                                                        outputs=args.output_tensors)
+                inference_time = (time.time() - start_time) * 1000
                 # map results [class_id] => [confidence]
                 results = enumerate(results)
                 # sort results by confidence
                 sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
                 top_result = sorted_results[0]
-                msg_string = "The image {} was classified as {} with confidence {}.".format(os.path.join(args.image_dir, image), 
+                msg_string = "(%.0f ms) The image %s was classified as %s with confidence %s." % (inference_time, os.path.join(args.image_dir, image), 
                                                                                             classes_entries[top_result[0]], 
                                                                                             top_result[1])
+                print(msg_string)
             except: 
                 tb = traceback.format_exc()
                 if "StatusCode.UNAVAILABLE" in tb:
-                    msg_string = "Unable to inference because AzureML host container is not done flashing the FPGA. If still not available in 10 minutes, check logs of module."
+                    msg_string = "Unable to inference because AzureML host container is not done flashing the FPGA. If still not available in 5 minutes, check logs of module."
                 elif "Object reference not set to an instance of an object" in tb:
                     msg_string = "Unable to inference because the names of the input and output tensors used for scoring are incorrect.\n" + \
                                 "Please update the docker CMD arguments to include the correct --input-tensors and --output-tensors parameters."
@@ -89,10 +91,10 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output-tensors", type=str, default="classifier/resnet_v1_50/predictions/Softmax:0", dest='output_tensors',
                                     help="The name of the output tensor you specified when converting your model. \n" + \
                                           "Default for Brainwave resnet50: 'classifier/resnet_v1_50/predictions/Softmax:0'")
-    parser.add_argument("-a", "--address", default="azureml-fpga-host",
+    parser.add_argument("-a", "--address", default="azureml-host",
                                     help="The address of the inferencing container. \n" +
                                         "For IOT Edge, this is name of the inferencing host module on the IOT Edge device.\n" +
-                                        "Default: azureml-fpga-host")
+                                        "Default: azureml-host")
     parser.add_argument("-p", "--port", default=50051,
                         help="The port of the inferencing container. \n" +
                              "Default: 50051.")
