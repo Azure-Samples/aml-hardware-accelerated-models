@@ -1,3 +1,14 @@
+---
+page_type: sample
+languages:
+- csharp
+- python
+products:
+- azure
+description: "These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product"
+urlFragment: aml-hardware-accelerated-models
+---
+
 # Azure Machine Learning Hardware Accelerated Models - Samples
 
 ## Getting Started
