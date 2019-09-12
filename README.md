@@ -1,11 +1,13 @@
 ---
 page_type: sample
 languages:
-- csharp
 - python
+- jupyter-notebook
+- csharp
+- dockerfile
 products:
 - azure
-description: "These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product"
+description: "These samples assume you are familiar with the Azure ML Hardware Accelerated Models (HAM) product."
 urlFragment: aml-hardware-accelerated-models
 ---
 
